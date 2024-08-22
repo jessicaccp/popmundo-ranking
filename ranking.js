@@ -1,4 +1,6 @@
-class Band {
+import * as listeners from "./listeners.js";
+
+export class Band {
   constructor(node, date) {
     this.last = {};
     this.current = {};
@@ -6,7 +8,7 @@ class Band {
 
     if (date === "last") {
       this.last.name = node.textContent;
-      this.last.id = node.href.split("/")[6];
+      this.id = this?.id ? this.id : node.href.split("/")[6];
       this.last.global = Number(node.previousSibling.textContent.split("#")[1]);
       this.last.local = Number(
         node.previousSibling.previousSibling.textContent
@@ -15,7 +17,9 @@ class Band {
 
     if (date === "current") {
       this.current.name = node.cells[2].textContent;
-      this.current.id = node.cells[2].firstChild.href.split("/")[6];
+      this.id = this?.id
+        ? this.id
+        : node.cells[2].firstChild.href.split("/")[6];
       this.current.global = Number(node.cells[1].textContent);
       this.current.local = Number(node.cells[0].textContent);
     }
@@ -60,11 +64,11 @@ class Band {
   }
 
   getNode() {
-    console.log(this);
+    console.dir(this);
   }
 }
 
-const generateRanking = (last, current) => {
+export const generateRanking = (last, current) => {
   if (last.innerHTML === "" || current.innerHTML === "") {
     return "Please paste both last and current ranking";
   }
@@ -75,6 +79,8 @@ const generateRanking = (last, current) => {
   for (let node of last.childNodes)
     if (node.nodeName === "A") {
       const band = new Band(node, "last");
-      band.getNode();
+      //   band.getNode();
     }
+
+  for (let node of current.childNodes) continue;
 };

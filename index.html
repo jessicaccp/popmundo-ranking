@@ -14,6 +14,7 @@
     <div class="flex h-full w-full gap-4 flex-col container md:flex-row">
       <div id="last" class="w-1/3 h-full p-4 flex flex-col gap-4 items-center">
         <h2>Último post no fórum</h2>
+        <div id="last-warning" class="hidden">Paste the ranking correctly</div>
         <div
           id="last-paste"
           class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-scroll p-2"
@@ -82,6 +83,7 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="listeners.js" type="module"></script>
+    <script src="ranking.js" type="module"></script>
   </body>
 </html>
