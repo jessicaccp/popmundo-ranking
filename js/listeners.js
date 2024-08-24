@@ -1,9 +1,9 @@
-import * as ranking from "./ranking.js";
+import { generateRanking } from "./generator.js";
 
-// last ranking post elements
-const last = document.getElementById("last-paste");
-const lastErase = document.getElementById("last-erase");
-const lastWarning = document.getElementById("last-warning");
+// past ranking post elements
+const past = document.getElementById("past-paste");
+const pastErase = document.getElementById("past-erase");
+const pastWarning = document.getElementById("past-warning");
 
 // current ranking post elements
 const current = document.getElementById("current-paste");
@@ -14,22 +14,22 @@ const generated = document.getElementById("generated-paste");
 const generatedOk = document.getElementById("new-generate");
 const generatedCopy = document.getElementById("new-copy");
 
-// erase text from element (last or current)
+// erase text from element (past or current)
 const eraseText = (event, element) => {
   event.preventDefault();
   element.innerHTML = "";
-  if (element === last) {
-    lastWarning.classList = "hidden";
+  if (element === past) {
+    pastWarning.classList = "hidden";
   }
 };
 
-// paste text to element (last or current)
+// paste text to element (past or current)
 const pasteText = (event) => {
   event.preventDefault();
   event.target.innerHTML = event.clipboardData.getData("text/html");
   const nodes = event.target.childNodes;
 
-  if (event.target === last) {
+  if (event.target === past) {
     try {
       if (
         nodes[2].nodeName !== "STRONG" ||
@@ -41,9 +41,9 @@ const pasteText = (event) => {
         nodes[8].nodeName !== "#text" ||
         nodes[9].nodeName !== "A"
       ) {
-        lastWarning.classList = "block";
+        pastWarning.classList = "block";
       } else {
-        lastWarning.classList = "hidden";
+        pastWarning.classList = "hidden";
       }
     } catch (error) {
       console.log(error);
@@ -60,29 +60,28 @@ const copyText = (event, element) => {
 // generate forum post (generated)
 const generateText = (event, element) => {
   event.preventDefault();
-  generated.innerHTML = ranking.generateRanking(last, current);
+  generated.innerHTML = ranking.generateRanking(past, current);
 };
 
 // erase buttons
-lastErase.addEventListener("click", (event) => eraseText(event, last));
+pastErase.addEventListener("click", (event) => eraseText(event, past));
 currentErase.addEventListener("click", (event) => eraseText(event, current));
 
 // paste divs
-last.addEventListener("paste", pasteText);
+past.addEventListener("paste", pasteText);
 current.addEventListener("paste", pasteText);
 
 // copy button
 generatedCopy.addEventListener("click", (event) => copyText(event, generated));
 
 // generate button
-generatedOk.addEventListener("click", (event) =>
-  generateText(event, generated)
-);
+generatedOk.addEventListener("click", generateRanking);
 
-last.addEventListener("change", (event) => {
-  if (last.childNodes[3].nodeName !== "BR") {
-    lastWarning.classList = "block";
+// warning
+past.addEventListener("change", (event) => {
+  if (past.childNodes[3].nodeName !== "BR") {
+    pastWarning.classList = "block";
   } else {
-    lastWarning.classList = "none";
+    pastWarning.classList = "none";
   }
 });
