@@ -1,0 +1,3 @@
+div#past-paste:empty:before, div#current-paste:empty:before {
+    content: 'Clique e cole aqui';
+}

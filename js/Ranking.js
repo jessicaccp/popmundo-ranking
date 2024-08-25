@@ -183,57 +183,45 @@ export default class Ranking {
   setPost() {
     this.post = `[b][u]Ranking ${
       this.genre ? `de ${this.genre}` : ``
-    }[/u][/b][br]
-Atualizado em ${new Date().toLocaleDateString("pt-BR")}[br][br]
-${this.bands
-  .map(
-    (band) =>
-      `[b]${band.local < 10 ? `0` : ``}${band.local}[/b] (${
-        band.relativeLocal > 0 ? `+` : band.relativeLocal < 0 ? `` : `=`
-      }${band.relativeLocal ? band.relativeLocal : ``}) #${
-        band.global
-      } [artistid=${band.id} name=${band.name}] (${
-        band.relativeGlobal > 0 ? `+` : band.relativeGlobal < 0 ? `` : `=`
-      }${band.relativeGlobal ? band.relativeGlobal : ``})[br] ${
-        band.local % 10 === 0 ? `[br]` : ``
-      }`
-  )
-  .join("")}
-[br][b]Maior subida:[/b][br]
-${
-  this.max
-    ? `${this.max
-        .map((band) => `[artistid=${band.id} name=${band.name}]`)
-        .join(", ")} (+${this.max[0].relativeGlobal})`
-    : `-`
-}[br]
-
-[br][b]Maior queda:[/b][br]
-${
-  this.min
-    ? `${this.min
-        .map((band) => `[artistid=${band.id} name=${band.name}]`)
-        .join(", ")} (${this.min[0].relativeGlobal})`
-    : `-`
-}[br]
-
-[br][b]Entrando na atualização:[/b][br]
-${
-  this.new
-    ? this.new
-        .map((band) => `[artistid=${band.id} name=${band.name}]`)
-        .join(", ")
-    : `-`
-}[br]
-
-[br][b]Fora da atualização:[/b][br]
-${
-  this.out
-    ? this.out
-        .map((band) => `[artistid=${band.id} name=${band.name}]`)
-        .join(", ")
-    : `-`
-}
-`;
+    }[/u][/b][br]Atualizado em ${new Date().toLocaleDateString(
+      "pt-BR"
+    )}[br][br]${this.bands
+      .map(
+        (band) =>
+          `[b]${band.local < 10 ? `0` : ``}${band.local}[/b] (${
+            band.relativeLocal > 0 ? `+` : band.relativeLocal < 0 ? `` : `=`
+          }${band.relativeLocal ? band.relativeLocal : ``}) #${
+            band.global
+          } [artistid=${band.id} name=${band.name}] (${
+            band.relativeGlobal > 0 ? `+` : band.relativeGlobal < 0 ? `` : `=`
+          }${band.relativeGlobal ? band.relativeGlobal : ``})[br] ${
+            band.local % 10 === 0 ? `[br]` : ``
+          }`
+      )
+      .join("")}[br][b]Maior subida:[/b][br]${
+      this.max
+        ? `${this.max
+            .map((band) => `[artistid=${band.id} name=${band.name}]`)
+            .join(", ")} (+${this.max[0].relativeGlobal})`
+        : `-`
+    }[br][br][b]Maior queda:[/b][br]${
+      this.min
+        ? `${this.min
+            .map((band) => `[artistid=${band.id} name=${band.name}]`)
+            .join(", ")} (${this.min[0].relativeGlobal})`
+        : `-`
+    }[br][br][b]Entrando na atualização:[/b][br]${
+      this.new
+        ? this.new
+            .map((band) => `[artistid=${band.id} name=${band.name}]`)
+            .join(", ")
+        : `-`
+    }[br][br][b]Fora da atualização:[/b][br]${
+      this.out
+        ? this.out
+            .map((band) => `[artistid=${band.id} name=${band.name}]`)
+            .join(", ")
+        : `-`
+    }`;
   }
 }

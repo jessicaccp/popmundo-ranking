@@ -4,25 +4,137 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
 
-    <title>Gerador de atualizações do Ranking PT do Popmundo</title>
+    <title>Gerador do Ranking PT-BR</title>
   </head>
-  <body class="flex h-screen w-screen gap-4 p-4 flex-col items-center">
-    <h1 class="text-xl">Gerador de atualizações do Ranking PT do Popmundo</h1>
-    <div id="warning" class="text-red-600"></div>
+  <body
+    class="flex flex-col w-screen max-w-screen h-screen max-h-screen lg:p-2 gap-2 lg:gap-4 items-center min-h-[600px] bg-gradient-to-r from-slate-300 to-slate-500 font-sans"
+  >
+    <div
+      id="alert"
+      class="absolute w-fit h-fit top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] bg-yellow-200 px-4 text-center transition-opacity"
+    ></div>
+    <header
+      class="text-2xl lg:text-3xl h-fit max-h-fit text-center container py-1"
+    >
+      <h1>Gerador do Ranking PT-BR</h1>
+    </header>
+    <main
+      class="w-full flex flex-col lg:flex-row flex-1 container gap-2 lg:justify-center text-base text-center max-h-[1500px]"
+    >
+      <div
+        class="bg-white bg-opacity-20 lg:w-1/3 lg:h-full flex flex-col py-2 flex-1 lg:flex-0"
+        id="past"
+      >
+        <h2 class="text-xl">Ranking anterior</h2>
+        <small class="mb-1 lg:mb-2 leading-none">(do tópico do gênero)</small>
+        <div
+          id="past-paste"
+          class="bg-white bg-opacity-20 flex-1 scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left"
+        ></div>
+        <form class="flex gap-4 justify-center w-full h-fit max-h-fit">
+          <button
+            type="button"
+            id="past-ok"
+            class="bg-opacity-40 bg-white hover:bg-gray-200 active:bg-gray-400 text-black rounded leading-none p-2"
+          >
+            Colar
+          </button>
+          <button
+            type="button"
+            id="past-erase"
+            class="bg-opacity-40 bg-white hover:bg-gray-200 active:bg-gray-400 text-black rounded leading-none p-2"
+          >
+            Apagar
+          </button>
+        </form>
+      </div>
+      <div
+        class="bg-white bg-opacity-20 lg:w-1/3 lg:h-full flex flex-col py-2 flex-1 lg:flex-0"
+        id="current"
+      >
+        <h2 class="text-xl">Ranking atual</h2>
+        <small class="mb-1 lg:mb-2 leading-none"
+          >(do ranking do clube social)</small
+        >
+        <div
+          id="current-paste"
+          class="bg-white bg-opacity-20 flex-1 scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left"
+        ></div>
+        <form class="flex gap-4 justify-center w-full h-fit max-h-fit">
+          <button
+            type="button"
+            id="current-ok"
+            class="bg-opacity-40 bg-white hover:bg-gray-200 active:bg-gray-400 text-black rounded leading-none p-2"
+          >
+            Colar
+          </button>
+          <button
+            type="button"
+            id="current-erase"
+            class="bg-opacity-40 bg-white hover:bg-gray-200 active:bg-gray-400 text-black rounded leading-none p-2"
+          >
+            Apagar
+          </button>
+        </form>
+      </div>
+      <div
+        class="bg-white bg-opacity-20 lg:w-1/3 lg:h-full flex flex-col py-2 flex-1 lg:flex-0"
+        id="generated"
+      >
+        <h2 class="text-xl">Atualização gerada</h2>
+        <small class="mb-1 lg:mb-2 leading-none"
+          >(para postar no tópico do gênero)</small
+        >
+        <div
+          id="generated-paste"
+          class="bg-white bg-opacity-20 flex-1 scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left"
+        ></div>
+        <form class="flex gap-4 justify-center w-full h-fit max-h-fit">
+          <button
+            type="button"
+            id="generated-ok"
+            class="bg-opacity-40 bg-white hover:bg-gray-200 active:bg-gray-400 text-black rounded leading-none p-2"
+          >
+            Gerar
+          </button>
+          <button
+            type="button"
+            id="generated-copy"
+            class="bg-opacity-40 bg-white hover:bg-gray-200 active:bg-gray-400 text-black rounded leading-none p-2"
+          >
+            Copiar
+          </button>
+        </form>
+      </div>
+    </main>
 
-    <!-- past -->
-    <div class="flex h-full w-full gap-4 flex-col container md:flex-row">
-      <div id="past" class="w-1/3 h-full p-4 flex flex-col gap-4 items-center">
+    <!-- <body class="flex h-screen w-screen gap-2 p-2 flex-col items-center">
+    <h1 class="text-2xl w-full text-center h-auto">Gerador do Ranking PT-BR</h1>
+    <div
+      id="warning"
+      class="text-red-700 w-auto px-6 align-middle leading-none text-center h-auto bg-yellow-200"
+    ></div>
+
+    <div
+      class="flex h-full w-full gap-2 flex-col container lg:flex-row overflow-none"
+    >
+      
+      <div
+        id="past"
+        class="w-full lg:w-1/3 h-1/3 max-h-1/3 lg:h-full flex flex-col gap-2 items-center overflow-none"
+      >
         <h2>Último post no fórum</h2>
-        <div id="past-warning" class="hidden">Paste the ranking correctly</div>
         <div
           id="past-paste"
           class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-scroll p-2"
-        ></div>
+        >
+          Clique e cole aqui
+        </div>
 
-        <!-- buttons -->
-        <div class="flex gap-4">
+        
+        <div class="flex gap-4 text-xs">
           <button
             id="past-erase"
             class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
@@ -32,20 +144,25 @@
         </div>
       </div>
 
-      <!-- current -->
+      
       <div
         id="current"
-        class="w-1/3 h-full p-4 flex flex-col gap-4 items-center"
+        class="w-full lg:w-1/3 h-1/3 max-h-1/3 lg:h-full flex flex-col gap-2 items-center overflow-none"
       >
         <h2>Atual tabela do clube social</h2>
         <div
-          class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-scroll p-2"
+          class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-none p-2"
         >
-          <div id="current-paste" class="w-full h-full"></div>
+          <div
+            id="current-paste"
+            class="w-full h-full overflow-scroll shrink-0"
+          >
+            Clique e cole aqui
+          </div>
         </div>
 
-        <!-- buttons -->
-        <div class="flex gap-4">
+        
+        <div class="flex gap-4 text-xs">
           <button
             id="current-erase"
             class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
@@ -55,10 +172,10 @@
         </div>
       </div>
 
-      <!-- generated -->
+      
       <div
         id="generated"
-        class="w-1/3 h-full p-4 flex flex-col gap-4 items-center"
+        class="w-full lg:w-1/3 h-1/3 max-h-1/3 lg:h-full flex flex-col gap-2 items-center"
       >
         <h2>Novo post gerado</h2>
         <div
@@ -66,8 +183,8 @@
           class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-scroll p-2"
         ></div>
 
-        <!-- buttons -->
-        <div class="flex gap-4">
+        
+        <div class="flex gap-4 text-xs">
           <button
             id="new-generate"
             class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
@@ -82,7 +199,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <script src="js/Band.js" type="module"></script>
     <script src="js/Ranking.js" type="module"></script>
