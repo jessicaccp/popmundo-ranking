@@ -30,43 +30,43 @@ const pasteText = (event) => {
   event.target.innerHTML = event.clipboardData.getData("text/html");
 };
 
-async function clickPaste(event) {
-  event.preventDefault();
+// async function clickPaste(event) {
+//   event.preventDefault();
 
-  try {
-    const clipboardContents = await navigator.clipboard.read();
-    for (const item of clipboardContents) {
-      if (!item.types.includes("text/html")) {
-        alert.innerText = "Tipo de conteúdo inválido.";
-        setTimeout(() => {
-          alert.style.opacity = 0;
-        }, 1000);
-        setTimeout(() => {
-          alert.innerText = "";
-          alert.style.opacity = 1;
-        }, 1200);
-        return;
-      }
-      const htmlBlob = await item.getType("text/html");
-      const html = await htmlBlob.text();
-      if (event.target === pastOk) past.innerHTML = html;
-      if (event.target === currentOk) current.innerHTML = html;
-      return;
-    }
-  } catch (error) {
-    alert.innerText = "Erro ao colar conteúdo.";
-    setTimeout(() => {
-      alert.style.opacity = 0;
-    }, 1000);
-    setTimeout(() => {
-      alert.innerText = "";
-      alert.style.opacity = 1;
-    }, 1200);
-    return;
-  }
-}
-pastOk.addEventListener("click", clickPaste);
-currentOk.addEventListener("click", clickPaste);
+//   try {
+//     const clipboardContents = await navigator.clipboard.read();
+//     for (const item of clipboardContents) {
+//       if (!item.types.includes("text/html")) {
+//         alert.innerText = "Tipo de conteúdo inválido.";
+//         setTimeout(() => {
+//           alert.style.opacity = 0;
+//         }, 1000);
+//         setTimeout(() => {
+//           alert.innerText = "";
+//           alert.style.opacity = 1;
+//         }, 1200);
+//         return;
+//       }
+//       const htmlBlob = await item.getType("text/html");
+//       const html = await htmlBlob.text();
+//       if (event.target === pastOk) past.innerHTML = html;
+//       if (event.target === currentOk) current.innerHTML = html;
+//       return;
+//     }
+//   } catch (error) {
+//     alert.innerText = "Erro ao colar conteúdo.";
+//     setTimeout(() => {
+//       alert.style.opacity = 0;
+//     }, 1000);
+//     setTimeout(() => {
+//       alert.innerText = "";
+//       alert.style.opacity = 1;
+//     }, 1200);
+//     return;
+//   }
+// }
+// pastOk.addEventListener("click", clickPaste);
+// currentOk.addEventListener("click", clickPaste);
 
 // copy text from element (generated)
 const copyText = (event) => {
