@@ -116,6 +116,18 @@ const generateHandler = (event) => {
     return;
   }
 
+  if (past.innerText === current.innerText) {
+    alert.innerText = "Os campos não podem ser iguais.";
+    setTimeout(() => {
+      alert.style.opacity = 0;
+    }, 3000);
+    setTimeout(() => {
+      alert.innerText = "";
+      alert.style.opacity = 1;
+    }, 3200);
+    return;
+  }
+
   ranking.update();
 };
 generatedOk.addEventListener("click", generateHandler);
