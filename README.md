@@ -1,6 +1,6 @@
-# popmundo-ranking
+# ranking-ptbr
 
-Gerador de atualizações do Ranking PT do jogo [Popmundo](https://popmundo.com)
+Gerador de atualizações do Ranking PT-BR do jogo [Popmundo](https://popmundo.com)
 
 ## Instruções
 
