@@ -9,7 +9,7 @@
     <title>Gerador do Ranking PT-BR</title>
   </head>
   <body
-    class="flex flex-col w-screen max-w-screen h-screen max-h-screen lg:p-2 gap-2 lg:gap-4 items-center min-h-[600px] bg-gradient-to-r from-slate-300 to-slate-500 font-sans"
+    class="flex flex-col w-screen max-w-screen h-screen max-h-screen lg:p-4 lg:pb-1 p-2 lg:gap-4 items-center min-h-[600px] bg-[#D1D1D1] font-sans text-[#333333]"
   >
     <div
       id="alert"
@@ -21,17 +21,17 @@
       <h1>Gerador do Ranking PT-BR</h1>
     </header>
     <main
-      class="w-full flex flex-col lg:flex-row flex-1 container gap-2 lg:justify-center text-base text-center max-h-[1500px]"
+      class="w-full flex flex-col lg:flex-row flex-0 h-full container gap-2 lg:gap-4 lg:justify-center text-base text-center max-h-[1500px] overflow-scroll my-2"
     >
       <div
-        class="bg-white bg-opacity-20 lg:w-1/3 lg:h-full flex flex-col py-2 flex-1 lg:flex-0"
+        class="bg-white bg-opacity-20 lg:w-1/3 h-full flex flex-col py-2 lg:py-4 flex-0 lg:flex-0 overflow-scroll"
         id="past"
       >
         <h2 class="text-xl">Ranking anterior</h2>
         <small class="mb-1 lg:mb-2 leading-none">(do tópico do gênero)</small>
         <div
           id="past-paste"
-          class="bg-white bg-opacity-20 flex-1 scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left p-1"
+          class="bg-white bg-opacity-20 flex-0 h-full scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left p-1 lg:p-4 overflow-scroll"
           contenteditable="true"
         ></div>
         <form class="flex gap-4 justify-center w-full h-fit max-h-fit">
@@ -52,7 +52,7 @@
         </form>
       </div>
       <div
-        class="bg-white bg-opacity-20 lg:w-1/3 lg:h-full flex flex-col py-2 flex-1 lg:flex-0"
+        class="bg-white bg-opacity-20 lg:w-1/3 h-full flex flex-col py-2 lg:py-4 flex-0 lg:flex-0 overflow-scroll"
         id="current"
       >
         <h2 class="text-xl">Ranking atual</h2>
@@ -61,7 +61,7 @@
         >
         <div
           id="current-paste"
-          class="bg-white bg-opacity-20 flex-1 scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left p-1"
+          class="bg-white bg-opacity-20 flex-0 h-full scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left p-1 lg:p-4 overflow-scroll"
           contenteditable="true"
         ></div>
         <form class="flex gap-4 justify-center w-full h-fit max-h-fit">
@@ -82,7 +82,7 @@
         </form>
       </div>
       <div
-        class="bg-white bg-opacity-20 lg:w-1/3 lg:h-full flex flex-col py-2 flex-1 lg:flex-0"
+        class="bg-white bg-opacity-20 lg:w-1/3 h-full flex flex-col py-2 lg:py-4 flex-0 lg:flex-0 overflow-scroll"
         id="generated"
       >
         <h2 class="text-xl">Atualização gerada</h2>
@@ -91,7 +91,7 @@
         >
         <div
           id="generated-paste"
-          class="bg-white bg-opacity-20 flex-1 scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left p-1"
+          class="bg-white bg-opacity-20 flex-0 h-full scroll-auto text-xs m-2 lg:m-4 min-h-[70px] text-left p-1 lg:p-4 overflow-scroll"
         ></div>
         <form class="flex gap-4 justify-center w-full h-fit max-h-fit">
           <button
@@ -111,100 +111,18 @@
         </form>
       </div>
     </main>
+    <footer class="text-sm text-center lg:text-right w-full">
+      Essa <u>não</u> é uma página oficial do jogo.<br />
+      Para dúvidas e sugestões, id
+      <span
+        class="hover:cursor-help hover:underline"
+        title="Hazel Kang / Malou Steinbach / Apple Woodward"
+        >3164919</span
+      >.
+    </footer>
 
-    <!-- <body class="flex h-screen w-screen gap-2 p-2 flex-col items-center">
-    <h1 class="text-2xl w-full text-center h-auto">Gerador do Ranking PT-BR</h1>
-    <div
-      id="warning"
-      class="text-red-700 w-auto px-6 align-middle leading-none text-center h-auto bg-yellow-200"
-    ></div>
-
-    <div
-      class="flex h-full w-full gap-2 flex-col container lg:flex-row overflow-none"
-    >
-      
-      <div
-        id="past"
-        class="w-full lg:w-1/3 h-1/3 max-h-1/3 lg:h-full flex flex-col gap-2 items-center overflow-none"
-      >
-        <h2>Último post no fórum</h2>
-        <div
-          id="past-paste"
-          class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-scroll p-2"
-        >
-          Clique e cole aqui
-        </div>
-
-        
-        <div class="flex gap-4 text-xs">
-          <button
-            id="past-erase"
-            class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
-          >
-            Apagar
-          </button>
-        </div>
-      </div>
-
-      
-      <div
-        id="current"
-        class="w-full lg:w-1/3 h-1/3 max-h-1/3 lg:h-full flex flex-col gap-2 items-center overflow-none"
-      >
-        <h2>Atual tabela do clube social</h2>
-        <div
-          class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-none p-2"
-        >
-          <div
-            id="current-paste"
-            class="w-full h-full overflow-scroll shrink-0"
-          >
-            Clique e cole aqui
-          </div>
-        </div>
-
-        
-        <div class="flex gap-4 text-xs">
-          <button
-            id="current-erase"
-            class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
-          >
-            Apagar
-          </button>
-        </div>
-      </div>
-
-      
-      <div
-        id="generated"
-        class="w-full lg:w-1/3 h-1/3 max-h-1/3 lg:h-full flex flex-col gap-2 items-center"
-      >
-        <h2>Novo post gerado</h2>
-        <div
-          id="generated-paste"
-          class="border-2 w-full h-full border-black flex flex-wrap text-xs overflow-scroll p-2"
-        ></div>
-
-        
-        <div class="flex gap-4 text-xs">
-          <button
-            id="new-generate"
-            class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
-          >
-            Gerar
-          </button>
-          <button
-            id="new-copy"
-            class="bg-black hover:bg-white text-white hover:text-black p-2 rounded"
-          >
-            Copiar
-          </button>
-        </div>
-      </div>
-    </div> -->
-
-    <script src="js/Band.js" type="module"></script>
-    <script src="js/Ranking.js" type="module"></script>
-    <script src="js/listeners.js" type="module"></script>
+    <script src="js/Band.js" type="module" defer></script>
+    <script src="js/Ranking.js" type="module" defer></script>
+    <script src="js/listeners.js" type="module" defer></script>
   </body>
 </html>

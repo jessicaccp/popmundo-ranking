@@ -112,8 +112,17 @@ export default class Ranking {
       document.getElementById("past-paste").innerHTML === "" ||
       document.getElementById("current-paste").innerHTML === ""
     ) {
-      document.getElementById("warning").innerHTML =
+      const alert = document.getElementById("alert");
+      alert.innerHTML =
         "Por favor, cole ambos os rankings antes de gerar uma atualização";
+      setTimeout(() => {
+        alert.style.opacity = 0;
+      }, 3000);
+      setTimeout(() => {
+        alert.innerText = "";
+        alert.style.opacity = 1;
+      }, 3200);
+      return;
     } else {
       // get genre
       const strongTags = document
@@ -131,6 +140,7 @@ export default class Ranking {
         .getElementById("past-paste")
         .querySelectorAll("a");
       pastBands.forEach((node) => {
+        if (node.previousSibling.tagName === "BR") return;
         const band = new Band();
         band.setName(node.innerText);
         band.setId(node.href.split("/")[6]);
@@ -140,6 +150,28 @@ export default class Ranking {
         band.setPastLocal(node.previousSibling.previousSibling.textContent);
         this.addBand(band);
       });
+
+      // get genre from current ranking
+      const h2Tags = document
+        .getElementById("current-paste")
+        .querySelector("h2");
+      if (h2Tags) {
+        if (!this.genre) {
+          this.setGenre(h2Tags.textContent || null);
+        } else if (this.genre !== h2Tags.textContent) {
+          const alert = document.getElementById("alert");
+          alert.innerHTML = "Os rankings não são do mesmo gênero musical.";
+          setTimeout(() => {
+            alert.style.opacity = 0;
+          }, 3000);
+          setTimeout(() => {
+            alert.innerText = "";
+            alert.style.opacity = 1;
+          }, 3200);
+
+          return;
+        }
+      }
 
       // get data from current ranking
       const currentBands = document
