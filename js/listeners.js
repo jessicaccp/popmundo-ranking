@@ -1,133 +1,69 @@
 import Ranking from "./Ranking.js";
+import Alert from "./Alert.js";
 
+// objects
 const ranking = new Ranking();
-const alert = document.getElementById("alert");
+const alert = new Alert();
 
-// past ranking post elements
+// elements
 const past = document.getElementById("past-paste");
-const pastOk = document.getElementById("past-ok");
 const pastErase = document.getElementById("past-erase");
-
-// current ranking post elements
 const current = document.getElementById("current-paste");
-const currentOk = document.getElementById("current-ok");
 const currentErase = document.getElementById("current-erase");
+const result = document.getElementById("result-paste");
+const resultGenerate = document.getElementById("result-generate");
+const resultCopy = document.getElementById("result-copy");
+const resultErase = document.getElementById("result-erase");
 
-// generated ranking post elements
-const generated = document.getElementById("generated-paste");
-const generatedOk = document.getElementById("generated-ok");
-const generatedCopy = document.getElementById("generated-copy");
-
-// erase text from element (past or current)
-const eraseText = (event, element) => {
+// erase text from divs when clicking on the erase buttons
+const buttonsErase = [pastErase, currentErase, resultErase];
+const eraseText = (event) => {
   event.preventDefault();
-  element.innerHTML = "";
+  if (buttonsErase.includes(event.target)) result.innerHTML = "";
+  if (event.target === pastErase) past.innerHTML = "";
+  else if (event.target === currentErase) current.innerHTML = "";
 };
+buttonsErase.forEach((button) => button.addEventListener("click", eraseText));
 
-// paste text to element (past or current)
+// paste user formatted text to divs when pasting
+const divsPaste = [past, current];
 const pasteText = (event) => {
   event.preventDefault();
   event.target.innerHTML = event.clipboardData.getData("text/html");
 };
+divsPaste.forEach((div) => div.addEventListener("paste", pasteText));
 
-// async function clickPaste(event) {
-//   event.preventDefault();
-
-//   try {
-//     const clipboardContents = await navigator.clipboard.read();
-//     for (const item of clipboardContents) {
-//       if (!item.types.includes("text/html")) {
-//         alert.innerText = "Tipo de conteúdo inválido.";
-//         setTimeout(() => {
-//           alert.style.opacity = 0;
-//         }, 1000);
-//         setTimeout(() => {
-//           alert.innerText = "";
-//           alert.style.opacity = 1;
-//         }, 1200);
-//         return;
-//       }
-//       const htmlBlob = await item.getType("text/html");
-//       const html = await htmlBlob.text();
-//       if (event.target === pastOk) past.innerHTML = html;
-//       if (event.target === currentOk) current.innerHTML = html;
-//       return;
-//     }
-//   } catch (error) {
-//     alert.innerText = "Erro ao colar conteúdo.";
-//     setTimeout(() => {
-//       alert.style.opacity = 0;
-//     }, 1000);
-//     setTimeout(() => {
-//       alert.innerText = "";
-//       alert.style.opacity = 1;
-//     }, 1200);
-//     return;
-//   }
-// }
-// pastOk.addEventListener("click", clickPaste);
-// currentOk.addEventListener("click", clickPaste);
-
-// copy text from element (generated)
+// copy text from div when clicking or ctrl+c the result div or copy button
+const elementsCopy = [result, resultCopy];
 const copyText = (event) => {
   event.preventDefault();
-  navigator.clipboard.writeText(generated.innerHTML);
-  if (generated.innerText.length > 0) {
-    alert.innerText = "Copiado!";
-    setTimeout(() => {
-      alert.style.opacity = 0;
-    }, 1000);
-    setTimeout(() => {
-      alert.innerText = "";
-      alert.style.opacity = 1;
-    }, 1200);
+  navigator.clipboard.writeText(result.innerHTML);
+  if (result.innerHTML.length > 0) {
+    alert.show("Copiado!", 1000, 1200);
   }
 };
+elementsCopy.forEach((element) => element.addEventListener("click", copyText));
+elementsCopy.forEach((element) => element.addEventListener("copy", copyText));
 
-// erase buttons
-pastErase.addEventListener("click", (event) => eraseText(event, past));
-currentErase.addEventListener("click", (event) => eraseText(event, current));
-
-// paste divs
-past.addEventListener("paste", pasteText);
-current.addEventListener("paste", pasteText);
-
-// copy button
-generatedCopy.addEventListener("click", copyText);
-generated.addEventListener("click", copyText);
-["mouseenter", "mousemove", "mouseover"].forEach((event) => {
-  generated.addEventListener(event, (e) => {
-    window.getSelection().selectAllChildren(generated);
-  });
+// select all text from div when hovering over it
+const eventsSelect = ["mouseenter", "mousemove", "mouseover"];
+const selectText = (event) => {
+  window.getSelection().selectAllChildren(event.target);
+};
+eventsSelect.forEach((event) => {
+  result.addEventListener(event, selectText);
 });
-generated.addEventListener("copy", copyText);
 
-// generate button
+// generate ranking update when clicking on the generate button
 const generateHandler = (event) => {
   if (past.innerText.length === 0 || current.innerText.length === 0) {
-    alert.innerText = "Por favor, preencha os campos com ambos os rankings.";
-    setTimeout(() => {
-      alert.style.opacity = 0;
-    }, 3000);
-    setTimeout(() => {
-      alert.innerText = "";
-      alert.style.opacity = 1;
-    }, 3200);
+    alert.show("Por favor, preencha os campos com ambos os rankings.");
     return;
   }
-
   if (past.innerText === current.innerText) {
-    alert.innerText = "Os campos não podem ser iguais.";
-    setTimeout(() => {
-      alert.style.opacity = 0;
-    }, 3000);
-    setTimeout(() => {
-      alert.innerText = "";
-      alert.style.opacity = 1;
-    }, 3200);
+    alert.show("Os campos não podem ser iguais.");
     return;
   }
-
   ranking.update();
 };
-generatedOk.addEventListener("click", generateHandler);
+resultGenerate.addEventListener("click", generateHandler);

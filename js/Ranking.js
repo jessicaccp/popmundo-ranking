@@ -208,12 +208,12 @@ export default class Ranking {
       this.sortBands();
       this.setLocal();
       this.setPost();
-      document.getElementById("generated-paste").innerHTML = this.post;
+      document.getElementById("result-paste").innerHTML = this.post;
     }
   }
 
   setPost() {
-    this.post = `[b][u]Ranking ${
+    this.post = `[quote]Para fazer parte do ranking, um dos integrantes deve solicitar sua inscrição no nosso [tribeid=6582 name=clube social]. Se você estiver no clube e sua banda/gangue não aparecer aqui, por favor, avise no tópico.[/quote][br][b][u]Ranking ${
       this.genre ? `de ${this.genre}` : ``
     }[/u][/b][br]Atualizado em ${new Date().toLocaleDateString(
       "pt-BR"
