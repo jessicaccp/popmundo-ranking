@@ -1,4 +1,5 @@
 import Band from "./Band.js";
+import Alert from "./Alert.js";
 
 export default class Ranking {
   constructor() {
@@ -9,6 +10,7 @@ export default class Ranking {
     this.new = null;
     this.out = null;
     this.post = null;
+    this.alert = new Alert();
   }
 
   // add band to array of bands
@@ -76,18 +78,20 @@ export default class Ranking {
     const maxValue = Math.max(...this.bands.map((band) => band.relativeGlobal));
     if (maxValue > 0) {
       this.max = this.bands.filter((band) => band.relativeGlobal === maxValue);
-    }
-    if (this.max?.length === 0) {
-      this.max = null;
+      if (this.max?.length === 0) {
+        this.max = null;
+      }
     }
   }
 
   // find the bands that moved down the most in the ranking
   setMin() {
     const minValue = Math.min(...this.bands.map((band) => band.relativeGlobal));
-    this.min = this.bands.filter((band) => band.relativeGlobal === minValue);
-    if (this.min?.length === 0) {
-      this.min = null;
+    if (minValue < 0) {
+      this.min = this.bands.filter((band) => band.relativeGlobal === minValue);
+      if (this.min?.length === 0) {
+        this.min = null;
+      }
     }
   }
 
@@ -108,20 +112,15 @@ export default class Ranking {
 
   // get ranking properties from past and current ranking
   update() {
+    this.reset();
+
     if (
       document.getElementById("past-paste").innerHTML === "" ||
       document.getElementById("current-paste").innerHTML === ""
     ) {
-      const alert = document.getElementById("alert");
-      alert.innerHTML =
-        "Por favor, cole ambos os rankings antes de gerar uma atualização";
-      setTimeout(() => {
-        alert.style.opacity = 0;
-      }, 3000);
-      setTimeout(() => {
-        alert.innerText = "";
-        alert.style.opacity = 1;
-      }, 3200);
+      this.alert.show(
+        "Por favor, cole ambos os rankings antes de gerar uma atualização."
+      );
       return;
     } else {
       // get genre
@@ -159,17 +158,9 @@ export default class Ranking {
         if (!this.genre) {
           this.setGenre(h2Tags.textContent || null);
         } else if (this.genre !== h2Tags.textContent) {
-          const alert = document.getElementById("alert");
-          alert.innerHTML = "Os rankings não são do mesmo gênero musical.";
-          setTimeout(() => {
-            alert.style.opacity = 0;
-          }, 3000);
-          setTimeout(() => {
-            alert.innerText = "";
-            alert.style.opacity = 1;
-          }, 3200);
-
-          return;
+          this.alert.show(
+            "Verifique se os rankings são do mesmo gênero musical."
+          );
         }
       }
 
@@ -200,13 +191,13 @@ export default class Ranking {
       });
 
       // run ranking methods
-      this.setRelative();
       this.setOut();
       this.setNew();
+      this.setLocal();
+      this.sortBands();
+      this.setRelative();
       this.setMax();
       this.setMin();
-      this.sortBands();
-      this.setLocal();
       this.setPost();
       document.getElementById("result-paste").innerHTML = this.post;
     }
