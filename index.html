@@ -15,10 +15,62 @@
       id="alert"
       class="absolute w-fit h-fit top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] bg-yellow-200 px-4 text-center transition-opacity"
     ></div>
-    <header
-      class="text-2xl lg:text-3xl h-fit max-h-fit text-center container py-1"
-    >
-      <h1>Gerador do Ranking PT-BR</h1>
+    <header class="h-fit max-h-fit text-center container py-1">
+      <h1 class="text-2xl lg:text-3xl mb-4">Gerador do Ranking PT-BR</h1>
+      <form autocomplete="off" class="hidden">
+        <fieldset class="flex justify-center gap-4">
+          <label
+            ><input
+              type="radio"
+              name="rankingType"
+              value="genre"
+              id="genre"
+              checked
+            />
+            Gêneros</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="rankingType"
+              value="criminal"
+              id="criminal"
+              disabled
+            />
+            Criminal</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="rankingType"
+              value="top"
+              id="top"
+              disabled
+            />
+            Top 100</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="rankingType"
+              value="sales"
+              id="sales"
+              disabled
+            />
+            Vendas</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="rankingType"
+              value="competition"
+              id="competition"
+              disabled
+            />
+            Competições</label
+          >
+        </fieldset>
+      </form>
     </header>
     <main
       class="w-full flex flex-col lg:flex-row flex-0 h-full container gap-2 lg:gap-4 lg:justify-center text-base text-center max-h-[1500px] overflow-scroll my-2"
