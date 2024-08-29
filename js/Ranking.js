@@ -193,8 +193,8 @@ export default class Ranking {
       // run ranking methods
       this.setOut();
       this.setNew();
-      this.setLocal();
       this.sortBands();
+      this.setLocal();
       this.setRelative();
       this.setMax();
       this.setMin();
