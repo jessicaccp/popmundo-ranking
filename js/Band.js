@@ -2,6 +2,7 @@ export default class Band {
   constructor() {
     this.name = null;
     this.id = null;
+    this.genre = null;
     this.pastGlobal = null;
     this.pastLocal = null;
     this.global = null;
@@ -18,6 +19,11 @@ export default class Band {
   // id
   setId(id) {
     this.id = String(id);
+  }
+
+  // genre
+  setGenre(genre) {
+    this.genre = String(genre);
   }
 
   // global position from past ranking
