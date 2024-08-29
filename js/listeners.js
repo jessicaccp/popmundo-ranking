@@ -1,9 +1,9 @@
-import Ranking from "./Ranking.js";
 import Alert from "./Alert.js";
+import GenreRanking from "./GenreRanking.js";
 
 // objects
-const ranking = new Ranking();
 const alert = new Alert();
+const genreRanking = new GenreRanking();
 
 // elements
 const past = document.getElementById("past-paste");
@@ -64,6 +64,7 @@ const generateHandler = (event) => {
     alert.show("Os campos não podem ser iguais.");
     return;
   }
-  ranking.update();
+  // ranking.update();
+  genreRanking.update();
 };
 resultGenerate.addEventListener("click", generateHandler);

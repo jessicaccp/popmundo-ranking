@@ -4,7 +4,6 @@ import Alert from "./Alert.js";
 export default class Ranking {
   constructor() {
     this.bands = [];
-    this.genre = null;
     this.max = null;
     this.min = null;
     this.new = null;
@@ -95,15 +94,9 @@ export default class Ranking {
     }
   }
 
-  // set the ranking music genre
-  setGenre(genre) {
-    this.genre = genre;
-  }
-
   // reset ranking properties
   reset() {
     this.bands = [];
-    this.genre = null;
     this.max = null;
     this.min = null;
     this.new = null;
@@ -111,7 +104,7 @@ export default class Ranking {
   }
 
   // get ranking properties from past and current ranking
-  update() {
+  getBandsData() {
     this.reset();
 
     if (
@@ -121,18 +114,18 @@ export default class Ranking {
       this.alert.show(
         "Por favor, cole ambos os rankings antes de gerar uma atualização."
       );
-      return;
+      return false;
     } else {
       // get genre
-      const strongTags = document
-        .getElementById("past-paste")
-        .querySelectorAll("strong");
-      let genre = null;
-      Object.values(strongTags).forEach((node) => {
-        if (node.innerText.includes("Ranking"))
-          genre = node.innerText.split("Ranking de ")[1];
-      });
-      this.setGenre(genre);
+      // const strongTags = document
+      //   .getElementById("past-paste")
+      //   .querySelectorAll("strong");
+      // let genre = null;
+      // Object.values(strongTags).forEach((node) => {
+      //   if (node.innerText.includes("Ranking"))
+      //     genre = node.innerText.split("Ranking de ")[1];
+      // });
+      // this.setGenre(genre);
 
       // get bands properties from past ranking
       const pastBands = document
@@ -151,18 +144,18 @@ export default class Ranking {
       });
 
       // get genre from current ranking
-      const h2Tags = document
-        .getElementById("current-paste")
-        .querySelector("h2");
-      if (h2Tags) {
-        if (!this.genre) {
-          this.setGenre(h2Tags.textContent || null);
-        } else if (this.genre !== h2Tags.textContent) {
-          this.alert.show(
-            "Verifique se os rankings são do mesmo gênero musical."
-          );
-        }
-      }
+      // const h2Tags = document
+      //   .getElementById("current-paste")
+      //   .querySelector("h2");
+      // if (h2Tags) {
+      //   if (!this.genre) {
+      //     this.setGenre(h2Tags.textContent || null);
+      //   } else if (this.genre !== h2Tags.textContent) {
+      //     this.alert.show(
+      //       "Verifique se os rankings são do mesmo gênero musical."
+      //     );
+      //   }
+      // }
 
       // get data from current ranking
       const currentBands = document
@@ -191,60 +184,77 @@ export default class Ranking {
       });
 
       // run ranking methods
-      this.setOut();
-      this.setNew();
-      this.sortBands();
-      this.setLocal();
-      this.setRelative();
-      this.setMax();
-      this.setMin();
-      this.setPost();
-      document.getElementById("result-paste").innerHTML = this.post;
+      // this.setOut();
+      // this.setNew();
+      // this.sortBands();
+      // this.setLocal();
+      // this.setRelative();
+      // this.setMax();
+      // this.setMin();
+      // this.setPost();
+      // document.getElementById("result-paste").innerHTML = this.post;
     }
+    return true;
   }
 
-  setPost() {
-    this.post = `[quote]Para fazer parte do ranking, um dos integrantes deve solicitar sua inscrição no nosso [tribeid=6582 name=clube social]. Se você estiver no clube e sua banda/gangue não aparecer aqui, por favor, avise no tópico.[/quote][br][b][u]Ranking ${
-      this.genre ? `de ${this.genre}` : ``
-    }[/u][/b][br]Atualizado em ${new Date().toLocaleDateString(
-      "pt-BR"
-    )}[br][br]${this.bands
-      .map(
-        (band) =>
-          `[b]${band.local < 10 ? `0` : ``}${band.local}[/b] (${
-            band.relativeLocal > 0 ? `+` : band.relativeLocal < 0 ? `` : `=`
-          }${band.relativeLocal ? band.relativeLocal : ``}) #${
-            band.global
-          } [artistid=${band.id} name=${band.name}] (${
-            band.relativeGlobal > 0 ? `+` : band.relativeGlobal < 0 ? `` : `=`
-          }${band.relativeGlobal ? band.relativeGlobal : ``})[br] ${
-            band.local % 10 === 0 ? `[br]` : ``
-          }`
-      )
-      .join("")}[br][b]Maior subida:[/b][br]${
-      this.max
-        ? `${this.max
-            .map((band) => `[artistid=${band.id} name=${band.name}]`)
-            .join(", ")} (+${this.max[0].relativeGlobal})`
-        : `-`
-    }[br][br][b]Maior queda:[/b][br]${
-      this.min
-        ? `${this.min
-            .map((band) => `[artistid=${band.id} name=${band.name}]`)
-            .join(", ")} (${this.min[0].relativeGlobal})`
-        : `-`
-    }[br][br][b]Entrando na atualização:[/b][br]${
-      this.new
-        ? this.new
-            .map((band) => `[artistid=${band.id} name=${band.name}]`)
-            .join(", ")
-        : `-`
-    }[br][br][b]Fora da atualização:[/b][br]${
-      this.out
-        ? this.out
-            .map((band) => `[artistid=${band.id} name=${band.name}]`)
-            .join(", ")
-        : `-`
-    }`;
+  // generate ranking update
+  runMethods() {
+    this.setOut();
+    this.setNew();
+    this.sortBands();
+    this.setLocal();
+    this.setRelative();
+    this.setMax();
+    this.setMin();
+    this.setPost();
   }
+
+  showUpdate() {
+    document.getElementById("result-paste").innerHTML = this.post;
+  }
+
+  // setPost() {
+  //   this.post = `[quote]Para fazer parte do ranking, um dos integrantes deve solicitar sua inscrição no nosso [tribeid=6582 name=clube social]. Se você estiver no clube e sua banda/gangue não aparecer aqui, por favor, avise no tópico.[/quote][br][b][u]Ranking ${
+  //     this.genre ? `de ${this.genre}` : ``
+  //   }[/u][/b][br]Atualizado em ${new Date().toLocaleDateString(
+  //     "pt-BR"
+  //   )}[br][br]${this.bands
+  //     .map(
+  //       (band) =>
+  //         `[b]${band.local < 10 ? `0` : ``}${band.local}[/b] (${
+  //           band.relativeLocal > 0 ? `+` : band.relativeLocal < 0 ? `` : `=`
+  //         }${band.relativeLocal ? band.relativeLocal : ``}) #${
+  //           band.global
+  //         } [artistid=${band.id} name=${band.name}] (${
+  //           band.relativeGlobal > 0 ? `+` : band.relativeGlobal < 0 ? `` : `=`
+  //         }${band.relativeGlobal ? band.relativeGlobal : ``})[br] ${
+  //           band.local % 10 === 0 ? `[br]` : ``
+  //         }`
+  //     )
+  //     .join("")}[br][b]Maior subida:[/b][br]${
+  //     this.max
+  //       ? `${this.max
+  //           .map((band) => `[artistid=${band.id} name=${band.name}]`)
+  //           .join(", ")} (+${this.max[0].relativeGlobal})`
+  //       : `-`
+  //   }[br][br][b]Maior queda:[/b][br]${
+  //     this.min
+  //       ? `${this.min
+  //           .map((band) => `[artistid=${band.id} name=${band.name}]`)
+  //           .join(", ")} (${this.min[0].relativeGlobal})`
+  //       : `-`
+  //   }[br][br][b]Entrando na atualização:[/b][br]${
+  //     this.new
+  //       ? this.new
+  //           .map((band) => `[artistid=${band.id} name=${band.name}]`)
+  //           .join(", ")
+  //       : `-`
+  //   }[br][br][b]Fora da atualização:[/b][br]${
+  //     this.out
+  //       ? this.out
+  //           .map((band) => `[artistid=${band.id} name=${band.name}]`)
+  //           .join(", ")
+  //       : `-`
+  //   }`;
+  // }
 }
